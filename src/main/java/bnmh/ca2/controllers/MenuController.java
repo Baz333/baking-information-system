@@ -42,7 +42,7 @@ public class MenuController {
                     BakedGood temp = MainApplication.list.get((Integer.parseInt(uidSelected)) - 1).getContents();
                     bg = temp;
                     System.out.println(temp.getName());
-                    FXMLLoader caseScene = new FXMLLoader(MenuController.class.getResource("add-baked-good-view.fxml"));
+                    FXMLLoader caseScene = new FXMLLoader(MenuController.class.getResource("baked-good-details.fxml"));
                     try {
                         goodsList.getScene().setRoot(caseScene.load());
                     } catch (IOException e) {
