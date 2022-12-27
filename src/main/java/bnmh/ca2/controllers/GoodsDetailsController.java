@@ -2,6 +2,8 @@ package bnmh.ca2.controllers;
 
 import bnmh.ca2.models.BakedGood;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.image.Image;
@@ -9,6 +11,7 @@ import javafx.scene.image.ImageView;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStream;
 
 public class GoodsDetailsController {
@@ -21,6 +24,8 @@ public class GoodsDetailsController {
     private Label descLabel;
     @FXML
     private ImageView imgView;
+    @FXML
+    private Button backButton;
     BakedGood bg = MenuController.bg;
 
     public void initialize() {
@@ -35,6 +40,11 @@ public class GoodsDetailsController {
             e.printStackTrace();
         }
 
+    }
+
+    public void OnBackButton() throws IOException {
+        FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
+        backButton.getScene().setRoot(menuView.load());
     }
 
 }

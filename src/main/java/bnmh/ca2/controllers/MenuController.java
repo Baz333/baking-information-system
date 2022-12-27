@@ -71,7 +71,6 @@ public class MenuController {
             System.out.println(temp.getContents().getName() + ": " +
                     temp.getContents().getDesc() + ", (Origin: " +
                     temp.getContents().getOrigin() + ")");
-
             i++;
             temp = temp.getNext();
 
