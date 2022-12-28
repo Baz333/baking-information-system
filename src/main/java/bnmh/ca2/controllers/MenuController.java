@@ -50,6 +50,13 @@ public class MenuController {
                     }
 
                 }
+            }else{
+                if (goodsList.getSelectionModel().getSelectedItem() != null) {
+                    String uidSelected = goodsList.getSelectionModel().getSelectedItem();
+                    uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
+                    System.out.println(uidSelected);
+                    MainApplication.goodsEditId = Integer.parseInt(uidSelected);
+                }
             }
         });
 
@@ -114,6 +121,11 @@ public class MenuController {
 
     public void OnAddIngredientsButtonPressed() throws IOException {
         FXMLLoader addIngredientView = new FXMLLoader(MenuController.class.getResource("add-ingredient-view.fxml"));
+        addIngredientsButton.getScene().setRoot(addIngredientView.load());
+    }
+
+    public void OnEditButtonPressed() throws IOException {
+        FXMLLoader addIngredientView = new FXMLLoader(MenuController.class.getResource("goods-edit.fxml"));
         addIngredientsButton.getScene().setRoot(addIngredientView.load());
     }
 

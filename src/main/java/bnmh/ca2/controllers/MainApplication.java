@@ -16,6 +16,7 @@ public class MainApplication extends Application {
 
     public static GenericLinkedList<BakedGood> list = new GenericLinkedList<>();
     public static GenericLinkedList<Ingredient> ingList = new GenericLinkedList<>();
+    public static int goodsEditId = 0;
 
     //loads main menu
     @Override

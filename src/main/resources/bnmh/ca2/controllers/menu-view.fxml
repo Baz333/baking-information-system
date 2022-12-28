@@ -9,10 +9,15 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bnmh.ca2.controllers.MenuController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bnmh.ca2.controllers.MenuController">
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
+            <Button mnemonicParsing="false" onAction="#OnEditButtonPressed" text="Edit">
+               <HBox.margin>
+                  <Insets right="345.0" />
+               </HBox.margin>
+            </Button>
             <TextField />
             <Button mnemonicParsing="false" text="Button" />
          </children>
