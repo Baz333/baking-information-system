@@ -2,6 +2,7 @@ package bnmh.ca2.controllers;
 
 import bnmh.ca2.models.BakedGood;
 import bnmh.ca2.models.Ingredient;
+import bnmh.ca2.utils.GenericLinkedList;
 import bnmh.ca2.utils.LinkedNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +27,8 @@ public class MenuController {
     private Button saveButton;
     @FXML
     private Button loadButton;
+    @FXML
+    private Button hashButton;
     public static BakedGood bg;
 
     public void initialize() {
@@ -107,6 +110,14 @@ public class MenuController {
         return "ingredients-save.xml";
     }
 
+    public String goodsHashFilename() {
+        return "goods-hash-table.xml";
+    }
+
+    public String ingHashFilename() {
+        return "ing-hash-table.xml";
+    }
+
     public void OnAddGoodsButtonPressed() throws IOException {
         FXMLLoader addBakedGoodView = new FXMLLoader(MenuController.class.getResource("add-baked-good-view.fxml"));
         addGoodsButton.getScene().setRoot(addBakedGoodView.load());
@@ -119,26 +130,63 @@ public class MenuController {
 
     public void OnSaveButton() throws IOException {
         ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(goodsFilename()));
-        out.writeObject(MainApplication.list.getHead());
         ObjectOutputStream out2 = new ObjectOutputStream(new FileOutputStream(ingredientsFilename()));
+        ObjectOutputStream out3 = new ObjectOutputStream(new FileOutputStream(goodsHashFilename()));
+        ObjectOutputStream out4 = new ObjectOutputStream(new FileOutputStream(ingHashFilename()));
+        out.writeObject(MainApplication.list.getHead());
         out2.writeObject(MainApplication.ingList.getHead());
+        out3.writeObject(MainApplication.goodsHash);
+        out4.writeObject(MainApplication.ingHash);
         out.close();
         out2.close();
+        out3.close();
+        out4.close();
     }
 
     public void OnLoadButton() throws IOException {
         try {
             ObjectInputStream in = new ObjectInputStream(new FileInputStream(goodsFilename()));
-            MainApplication.list.setHead((LinkedNode<BakedGood>) in.readObject());
             ObjectInputStream in2 = new ObjectInputStream(new FileInputStream(ingredientsFilename()));
+            ObjectInputStream in3 = new ObjectInputStream(new FileInputStream(goodsHashFilename()));
+            ObjectInputStream in4 = new ObjectInputStream(new FileInputStream(ingHashFilename()));
+            MainApplication.list.setHead((LinkedNode<BakedGood>) in.readObject());
             MainApplication.ingList.setHead((LinkedNode<Ingredient>) in2.readObject());
+            MainApplication.goodsHash = (GenericLinkedList<BakedGood>[]) in3.readObject();
+            MainApplication.ingHash = (GenericLinkedList<Ingredient>[]) in4.readObject();
             in.close();
             in2.close();
+            in3.close();
+            in4.close();
             repopulateGL();
             repopulateIL();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
         }
+    }
+
+    public void OnHashButton() {
+
+        System.out.println("=====Hash Table goodsHash=====");
+        for(int i = 0; i < MainApplication.goodsHash.length; i++) {
+            System.out.println("---Chain " + i + "---");
+            LinkedNode<BakedGood> temp = MainApplication.goodsHash[i].getHead();
+            while(temp != null) {
+                System.out.println(temp.getContents());
+                temp = temp.getNext();
+            }
+            System.out.println("\n");
+        }
+        System.out.println("\n\n=====Hash Table ingHash=====");
+        for(int i = 0; i < MainApplication.ingHash.length; i++) {
+            System.out.println("---Chain " + i + "---");
+            LinkedNode<Ingredient> temp = MainApplication.ingHash[i].getHead();
+            while(temp != null) {
+                System.out.println(temp.getContents());
+                temp = temp.getNext();
+            }
+            System.out.println("\n");
+        }
+
     }
 
 
