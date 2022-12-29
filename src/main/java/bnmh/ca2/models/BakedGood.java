@@ -1,5 +1,7 @@
 package bnmh.ca2.models;
 
+import bnmh.ca2.utils.LinkedNode;
+
 import java.io.Serializable;
 
 public class BakedGood implements Serializable {

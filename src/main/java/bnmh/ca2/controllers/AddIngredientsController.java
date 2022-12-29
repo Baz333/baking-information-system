@@ -47,7 +47,7 @@ public class AddIngredientsController {
 
         if(nameText.getText() != null && descText.getText() != null && calorieText.getText() != null) {
 
-            Ingredient ing = new Ingredient(null, null, nameText.getText(), descText.getText(), Integer.parseInt(calorieText.getText()));
+            Ingredient ing = new Ingredient(null, nameText.getText(), descText.getText(), Integer.parseInt(calorieText.getText()));
             MainApplication.ingList.add(ing);
             int i = hash(ing);
             System.out.println("\nAdding Ingredient to Hash Table ingHash:\nHash No: " + i);
@@ -55,7 +55,6 @@ public class AddIngredientsController {
             System.out.print("Ingredient ID: ");
             MainApplication.ingHash[i].list();
             System.out.println("\n");
-
 
             OnBackButton();
 

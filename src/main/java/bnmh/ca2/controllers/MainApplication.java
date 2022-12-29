@@ -3,7 +3,6 @@ package bnmh.ca2.controllers;
 import bnmh.ca2.models.BakedGood;
 import bnmh.ca2.models.Ingredient;
 import bnmh.ca2.utils.GenericLinkedList;
-import bnmh.ca2.utils.LinkedNode;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;

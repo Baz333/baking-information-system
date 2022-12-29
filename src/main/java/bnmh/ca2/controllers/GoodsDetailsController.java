@@ -1,10 +1,13 @@
 package bnmh.ca2.controllers;
 
 import bnmh.ca2.models.BakedGood;
+import bnmh.ca2.models.Recipe;
+import bnmh.ca2.utils.LinkedNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -24,10 +27,15 @@ public class GoodsDetailsController {
     @FXML
     private ImageView imgView;
     @FXML
+    private ListView<String> recipeList;
+    @FXML
+    private Button addRecipeButton;
+    @FXML
     private Button backButton;
     BakedGood bg = MenuController.bg;
 
     public void initialize() {
+
         nameLabel.setText("Name: " + bg.getName());
         originLabel.setText("Origin: " + bg.getOrigin());
         descLabel.setText("Description: " + bg.getDesc());
@@ -39,10 +47,38 @@ public class GoodsDetailsController {
             e.printStackTrace();
         }
 
+        repopulate();
+
+    }
+
+    public void repopulate() {
+
+        recipeList.getItems().clear();
+
+        Recipe temp = MenuController.bg.getHead();
+        int i = 1;
+        while (temp != null) {
+
+            recipeList.getItems().add(i + ": " +
+                    temp.getName() + " (" +
+                    temp.getDesc() + ")");
+
+            System.out.println(temp.getName() + " (" +
+                    temp.getDesc() + ")");
+            i++;
+            temp = temp.getNextRecipe();
+
+        }
+
+    }
+
+    public void OnAddRecipeButton() throws IOException {
+        FXMLLoader addRecipeView = new FXMLLoader(GoodsDetailsController.class.getResource("add-recipe-view.fxml"));
+        addRecipeButton.getScene().setRoot(addRecipeView.load());
     }
 
     public void OnBackButton() throws IOException {
-        FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
+        FXMLLoader menuView = new FXMLLoader(GoodsDetailsController.class.getResource("menu-view.fxml"));
         backButton.getScene().setRoot(menuView.load());
     }
 
