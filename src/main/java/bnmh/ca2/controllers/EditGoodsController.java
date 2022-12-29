@@ -33,7 +33,7 @@ public class EditGoodsController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        nameLabel.setText("Name: " + bg.getContents().getName());
+        nameLabel.setText("Name: " + MainApplication.list.getHead());
         originLabel.setText("Origin: " + bg.getContents().getOrigin());
         descLabel.setText("Description: " + bg.getContents().getDesc());
         try {
