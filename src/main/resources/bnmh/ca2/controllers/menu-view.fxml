@@ -13,11 +13,6 @@
    <children>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Button mnemonicParsing="false" onAction="#OnEditButtonPressed" text="Edit">
-               <HBox.margin>
-                  <Insets right="345.0" />
-               </HBox.margin>
-            </Button>
             <TextField />
             <Button mnemonicParsing="false" text="Button" />
          </children>

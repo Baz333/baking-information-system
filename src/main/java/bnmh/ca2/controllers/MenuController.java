@@ -27,6 +27,7 @@ public class MenuController {
     @FXML
     private Button loadButton;
     public static BakedGood bg;
+    public static Ingredient ig;
 
     public void initialize() {
 
@@ -50,12 +51,25 @@ public class MenuController {
                     }
 
                 }
-            }else{
-                if (goodsList.getSelectionModel().getSelectedItem() != null) {
-                    String uidSelected = goodsList.getSelectionModel().getSelectedItem();
+            }
+        });
+
+        ingList.setOnMouseClicked(click -> {
+            if (click.getClickCount() == 2) {
+                if (ingList.getSelectionModel().getSelectedItem() != null) {
+                    String uidSelected = ingList.getSelectionModel().getSelectedItem();
                     uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
                     System.out.println(uidSelected);
-                    MainApplication.goodsEditId = Integer.parseInt(uidSelected);
+                    Ingredient temp = MainApplication.ingList.get((Integer.parseInt(uidSelected)) - 1).getContents();
+                    ig = temp;
+                    System.out.println(temp.getName());
+                    FXMLLoader caseScene = new FXMLLoader(MenuController.class.getResource("ingredients-details.fxml"));
+                    try {
+                        ingList.getScene().setRoot(caseScene.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
                 }
             }
         });
@@ -86,20 +100,20 @@ public class MenuController {
     }
 
     public void repopulateIL() {
-
+        int i = 1;
         ingList.getItems().clear();
-
         LinkedNode<Ingredient> temp = MainApplication.ingList.getHead();
         while (temp != null) {
 
-            ingList.getItems().add(temp.getContents().getName() + ": " +
+            ingList.getItems().add(i + ": " +
+                    temp.getContents().getName() + ": " +
                     temp.getContents().getDesc() + ", (" +
                     temp.getContents().getCalories() + " calories)");
 
             System.out.println(temp.getContents().getName() + ": " +
                     temp.getContents().getDesc() + ", (" +
                     temp.getContents().getCalories() + " calories)");
-
+            i++;
             temp = temp.getNext();
 
         }
@@ -121,11 +135,6 @@ public class MenuController {
 
     public void OnAddIngredientsButtonPressed() throws IOException {
         FXMLLoader addIngredientView = new FXMLLoader(MenuController.class.getResource("add-ingredient-view.fxml"));
-        addIngredientsButton.getScene().setRoot(addIngredientView.load());
-    }
-
-    public void OnEditButtonPressed() throws IOException {
-        FXMLLoader addIngredientView = new FXMLLoader(MenuController.class.getResource("goods-edit.fxml"));
         addIngredientsButton.getScene().setRoot(addIngredientView.load());
     }
 
