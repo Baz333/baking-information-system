@@ -2,6 +2,8 @@ package bnmh.ca2.controllers;
 
 import bnmh.ca2.models.BakedGood;
 import bnmh.ca2.models.Recipe;
+import bnmh.ca2.utils.GenericLinkedList;
+import bnmh.ca2.utils.LinkedNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
@@ -41,6 +43,7 @@ public class GoodsDetailsController {
     private String filepath = null;
     public Button editButton;
     public Button fileButton;
+    public int deleteUID;
 
     BakedGood bg = MenuController.bg;
     public static Recipe rec;
@@ -166,4 +169,12 @@ public class GoodsDetailsController {
         initialize();
     }
 
+    public void delete() {
+        int ID = MenuController.DeleteUID-1;
+        if(MenuController.DeleteUID == 1){
+            MainApplication.list.remove(0);
+        }else {
+            MainApplication.list.remove(ID);
+        }
+    }
 }

@@ -26,9 +26,12 @@ public class GenericLinkedList<B> implements Serializable {
             return;
         } else if(head.getNext() == null) {
             deleteList();
+        } else if(indexToRemove == 0){
+            LinkedNode<B> temp = head;
+            head = head.getNext();
         } else {
             LinkedNode<B> temp = head;
-            for(int i = 0; i < indexToRemove; i++) {
+            for(int i = 1; i < indexToRemove -1; i++) {
                 temp = temp.getNext();
             }
             temp.setNext(temp.getNext().getNext());

@@ -59,4 +59,12 @@ public class IngredientsDetailsController {
         editButton.getScene().setRoot(addIngredientView.load());
     }
 
+    public void delete() {
+        int ID = MenuController.DeleteUID-1;
+        if(MenuController.DeleteUID == 1){
+            MainApplication.ingList.remove(0);
+        }else {
+            MainApplication.ingList.remove(ID);
+        }
+    }
 }

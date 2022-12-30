@@ -31,6 +31,7 @@ public class MenuController {
     private Button hashButton;
     public static BakedGood bg;
     public static Ingredient ig;
+    public static int DeleteUID;
 
     public void initialize() {
 
@@ -43,6 +44,7 @@ public class MenuController {
                     String uidSelected = goodsList.getSelectionModel().getSelectedItem();
                     uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
                     System.out.println(uidSelected);
+                    DeleteUID = Integer.parseInt(uidSelected);
                     BakedGood temp = MainApplication.list.get((Integer.parseInt(uidSelected)) - 1).getContents();
                     bg = temp;
                     System.out.println(temp.getName());
@@ -63,6 +65,7 @@ public class MenuController {
                     String uidSelected = ingList.getSelectionModel().getSelectedItem();
                     uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
                     System.out.println(uidSelected);
+                    DeleteUID = Integer.parseInt(uidSelected);
                     Ingredient temp = MainApplication.ingList.get((Integer.parseInt(uidSelected)) - 1).getContents();
                     ig = temp;
                     System.out.println(temp.getName());
