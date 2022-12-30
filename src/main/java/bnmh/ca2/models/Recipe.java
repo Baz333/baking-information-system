@@ -9,18 +9,18 @@ public class Recipe implements Serializable {
     //fields
     private BakedGood parent;
     private Recipe nextRecipe;
-    private Ingredient head;
-    private int calories;
+    private RecipeItem head;
+    private String name;
     private String desc;
 
 
 
     //constructor
-    public Recipe(BakedGood parent, Recipe nextRecipe, Ingredient head, int calories, String desc) {
+    public Recipe(BakedGood parent, Recipe nextRecipe, RecipeItem head, String name, String desc) {
         setParent(parent);
         setNextRecipe(nextRecipe);
         setHead(head);
-        setCalories(calories);
+        setName(name);
         setDesc(desc);
     }
 
@@ -35,12 +35,12 @@ public class Recipe implements Serializable {
         return nextRecipe;
     }
 
-    public Ingredient getHead() {
+    public RecipeItem getHead() {
         return head;
     }
 
-    public int getCalories() {
-        return calories;
+    public String getName() {
+        return name;
     }
 
     public String getDesc() {
@@ -58,12 +58,12 @@ public class Recipe implements Serializable {
         this.nextRecipe = nextRecipe;
     }
 
-    public void setHead(Ingredient head) {
+    public void setHead(RecipeItem head) {
         this.head = head;
     }
 
-    public void setCalories(int calories) {
-        this.calories = calories;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDesc(String desc) {

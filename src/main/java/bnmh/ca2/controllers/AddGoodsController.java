@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Locale;
 
 public class AddGoodsController {
 
@@ -37,6 +38,15 @@ public class AddGoodsController {
 
     private String filepath;
 
+    private int hash(BakedGood bg) {
+        char[] temp = bg.getName().toLowerCase(Locale.ROOT).toCharArray();
+        int key = 0;
+        for(char c : temp) {
+            key += c;
+        }
+        return key%MainApplication.ingHash.length;
+    }
+
     public void OnFileButton() throws IOException {
 
         FileChooser fileChooser = new FileChooser();
@@ -58,6 +68,12 @@ public class AddGoodsController {
 
             BakedGood bg = new BakedGood(null, null, nameText.getText(), originText.getText(), descText.getText(), filepath);
             MainApplication.list.add(bg);
+            int i = hash(bg);
+            System.out.println("\nAdding Ingredient to Hash Table goodsHash:\nHash No: " + i);
+            MainApplication.goodsHash[i].add(bg);
+            System.out.print("Ingredient ID: ");
+            MainApplication.goodsHash[i].list();
+            System.out.println("\n");
 
             OnBackButton();
 

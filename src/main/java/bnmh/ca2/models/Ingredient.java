@@ -7,7 +7,6 @@ public class Ingredient implements Serializable {
 
 
     //fields
-    private Recipe parent;
     private Ingredient nextIngredient;
     private String name;
     private String desc;
@@ -16,8 +15,7 @@ public class Ingredient implements Serializable {
 
 
     //constructor
-    public Ingredient(Recipe parent, Ingredient nextIngredient, String name, String desc, int calories) {
-        setParent(parent);
+    public Ingredient(Ingredient nextIngredient, String name, String desc, int calories) {
         setNextIngredient(nextIngredient);
         setName(name);
         setDesc(desc);
@@ -27,10 +25,6 @@ public class Ingredient implements Serializable {
 
 
     //getters
-    public Recipe getParent() {
-        return parent;
-    }
-
     public Ingredient getNextIngredient() {
         return nextIngredient;
     }
@@ -50,10 +44,6 @@ public class Ingredient implements Serializable {
 
 
     //setters
-    public void setParent(Recipe parent) {
-        this.parent = parent;
-    }
-
     public void setNextIngredient(Ingredient nextIngredient) {
         this.nextIngredient = nextIngredient;
     }
