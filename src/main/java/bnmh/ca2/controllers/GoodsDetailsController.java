@@ -66,7 +66,7 @@ public class GoodsDetailsController {
                     uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
                     System.out.println(uidSelected);
                     Recipe temp = bg.getHead();
-                    for(int i = 0; i < Integer.parseInt(uidSelected) - 1; i++) {
+                    for (int i = 0; i < Integer.parseInt(uidSelected) - 1; i++) {
                         temp = temp.getNextRecipe();
                     }
                     System.out.println(temp.getName());
@@ -109,7 +109,7 @@ public class GoodsDetailsController {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("Image Files", "*.png", "*.jpg", "*.webp"));
         File selectedFile = fileChooser.showOpenDialog(fileButton.getScene().getWindow());
-        if(selectedFile != null) {
+        if (selectedFile != null) {
             filepath = selectedFile.getAbsolutePath();
         }
         InputStream stream = new FileInputStream(filepath);
@@ -130,19 +130,19 @@ public class GoodsDetailsController {
     public void OnEditButton() throws IOException {
         FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("baked-good-details.fxml"));
         edit.getScene().setRoot(menuView.load());
-        if(!Name.getText().isEmpty()) {
+        if (!Name.getText().isEmpty()) {
             bg.setName(Name.getText());
-            nameLabel.setText(Name.getText());
+            nameLabel.setText(null);
         }
-        if(!Origin.getText().isEmpty()) {
+        if (!Origin.getText().isEmpty()) {
             originLabel.setText(Origin.getText());
             bg.setOrigin(Origin.getText());
         }
-        if(!Description.getText().isEmpty()){
+        if (!Description.getText().isEmpty()) {
             bg.setDesc(Description.getText());
             descLabel.setText(Description.getText());
         }
-        if(filepath != null){
+        if (filepath != null) {
             bg.setFilepath(filepath);
             imgView = imageView;
             try {
@@ -153,11 +153,17 @@ public class GoodsDetailsController {
                 e.printStackTrace();
             }
         }
+        refresh();
+
     }
 
     public void OnEditButtonPressed() throws IOException {
         FXMLLoader addIngredientView = new FXMLLoader(MenuController.class.getResource("goods-edit.fxml"));
         editButton.getScene().setRoot(addIngredientView.load());
+    }
+
+    public void refresh() {
+        initialize();
     }
 
 }
