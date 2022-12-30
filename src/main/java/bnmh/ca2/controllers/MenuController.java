@@ -123,19 +123,19 @@ public class MenuController {
 
     }
 
-    public String goodsFilename() {
+    public static String goodsFilename() {
         return "baking-system.xml";
     }
 
-    public String ingredientsFilename() {
+    public static String ingredientsFilename() {
         return "ingredients-save.xml";
     }
 
-    public String goodsHashFilename() {
+    public static String goodsHashFilename() {
         return "goods-hash-table.xml";
     }
 
-    public String ingHashFilename() {
+    public static String ingHashFilename() {
         return "ing-hash-table.xml";
     }
 

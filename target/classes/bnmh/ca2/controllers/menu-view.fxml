@@ -49,6 +49,11 @@
                </HBox.margin>
             </Button>
             <Button fx:id="loadButton" mnemonicParsing="false" onAction="#OnLoadButton" text="Load" />
+            <Button fx:id="hashButton" mnemonicParsing="false" onAction="#OnHashButton" text="Hash Table">
+               <HBox.margin>
+                  <Insets left="10.0" />
+               </HBox.margin>
+            </Button>
          </children>
       </HBox>
    </children>
