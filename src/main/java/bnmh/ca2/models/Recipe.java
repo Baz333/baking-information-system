@@ -9,15 +9,17 @@ public class Recipe implements Serializable {
     //fields
     private BakedGood parent;
     private Recipe nextRecipe;
+    private RecipeItem head;
     private String name;
     private String desc;
 
 
 
     //constructor
-    public Recipe(BakedGood parent, Recipe nextRecipe, String name, String desc) {
+    public Recipe(BakedGood parent, Recipe nextRecipe, RecipeItem head, String name, String desc) {
         setParent(parent);
         setNextRecipe(nextRecipe);
+        setHead(head);
         setName(name);
         setDesc(desc);
     }
@@ -31,6 +33,10 @@ public class Recipe implements Serializable {
 
     public Recipe getNextRecipe() {
         return nextRecipe;
+    }
+
+    public RecipeItem getHead() {
+        return head;
     }
 
     public String getName() {
@@ -50,6 +56,10 @@ public class Recipe implements Serializable {
 
     public void setNextRecipe(Recipe nextRecipe) {
         this.nextRecipe = nextRecipe;
+    }
+
+    public void setHead(RecipeItem head) {
+        this.head = head;
     }
 
     public void setName(String name) {

@@ -33,6 +33,7 @@ public class GoodsDetailsController {
     @FXML
     private Button backButton;
     BakedGood bg = MenuController.bg;
+    public static Recipe rec;
 
     public void initialize() {
 
@@ -48,6 +49,29 @@ public class GoodsDetailsController {
         }
 
         repopulate();
+
+        recipeList.setOnMouseClicked(click -> {
+            if (click.getClickCount() == 2) {
+                if (recipeList.getSelectionModel().getSelectedItem() != null) {
+                    String uidSelected = recipeList.getSelectionModel().getSelectedItem();
+                    uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
+                    System.out.println(uidSelected);
+                    Recipe temp = bg.getHead();
+                    for(int i = 0; i < Integer.parseInt(uidSelected) - 1; i++) {
+                        temp = temp.getNextRecipe();
+                    }
+                    System.out.println(temp.getName());
+                    rec = temp;
+                    FXMLLoader caseScene = new FXMLLoader(MenuController.class.getResource("recipe-details.fxml"));
+                    try {
+                        recipeList.getScene().setRoot(caseScene.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
 
     }
 

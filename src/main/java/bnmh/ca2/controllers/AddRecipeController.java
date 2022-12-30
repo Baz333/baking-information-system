@@ -28,7 +28,7 @@ public class AddRecipeController {
 
         if(nameText.getText() != null && descText.getText() != null) {
 
-            Recipe rec = new Recipe(MenuController.bg, null, nameText.getText(), descText.getText());
+            Recipe rec = new Recipe(MenuController.bg, null, null, nameText.getText(), descText.getText());
             rec.setNextRecipe(MenuController.bg.getHead());
             MenuController.bg.setHead(rec);
 
