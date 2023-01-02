@@ -29,6 +29,8 @@ public class MenuController {
     private Button loadButton;
     @FXML
     private Button hashButton;
+    @FXML
+    private Button searchButton;
     public static BakedGood bg;
     public static Ingredient ig;
     public static int DeleteUID;
@@ -213,6 +215,9 @@ public class MenuController {
 
     }
 
-
+    public void OnSearchButton() throws IOException{
+        FXMLLoader searchView = new FXMLLoader(MenuController.class.getResource("search-view.fxml"));
+        searchButton.getScene().setRoot(searchView.load());
+    }
 
 }
