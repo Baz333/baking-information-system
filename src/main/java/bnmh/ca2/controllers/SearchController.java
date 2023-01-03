@@ -2,6 +2,7 @@ package bnmh.ca2.controllers;
 
 import bnmh.ca2.models.BakedGood;
 import bnmh.ca2.models.Ingredient;
+import bnmh.ca2.models.Recipe;
 import bnmh.ca2.utils.LinkedNode;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,9 +27,11 @@ public class SearchController {
     @FXML
     private RadioButton descriptionRadio;
     @FXML
-    private ListView bakedGoods = new ListView<>();
+    private ListView<String> bakedGoods = new ListView<>();
     @FXML
-    private ListView ingredients = new ListView<>();
+    private ListView<String> ingredients = new ListView<>();
+    BakedGood baked = MenuController.bg;
+    public int DeleteUID;
 
     public void OnSearchButton() {
         int key = 0;
@@ -60,6 +63,27 @@ public class SearchController {
         System.out.println(bg.getContents().getName() + ": " +
                 bg.getContents().getDesc() + ", (Origin: " +
                 bg.getContents().getOrigin() + ")");
+
+        bakedGoods.setOnMouseClicked(click -> {
+            if (click.getClickCount() == 2) {
+                if (bakedGoods.getSelectionModel().getSelectedItem() != null) {
+                    String uidSelected =bakedGoods.getSelectionModel().getSelectedItem();
+                    uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
+                    System.out.println(uidSelected);
+                    DeleteUID = Integer.parseInt(uidSelected);
+                    BakedGood temp = MainApplication.list.get((Integer.parseInt(uidSelected)) - 1).getContents();
+                    baked = temp;
+                    System.out.println(temp.getName());
+                    FXMLLoader caseScene = new FXMLLoader(SearchController.class.getResource("baked-good-details.fxml"));
+                    try {
+                        bakedGoods.getScene().setRoot(caseScene.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
 
     public void searchIngredient(int key) {
