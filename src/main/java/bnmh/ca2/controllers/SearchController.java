@@ -26,46 +26,52 @@ public class SearchController {
     @FXML
     private RadioButton descriptionRadio;
     @FXML
-    private ListView bakedGoods;
+    private ListView bakedGoods = new ListView<>();
     @FXML
-    private ListView ingredients;
+    private ListView ingredients = new ListView<>();
 
     public void OnSearchButton() {
-        char[] temp = searchText.getText().toLowerCase(Locale.ROOT).toCharArray();
         int key = 0;
+        System.out.println(searchText.getText());
+        char[] temp = searchText.getText().toLowerCase(Locale.ROOT).toCharArray();
         for (char c : temp) {
             key += c;
         }
-        key = key % 10;
+        key = key % MainApplication.ingHash.length;
+        System.out.println(key);
         LinkedNode<BakedGood> bg = MainApplication.goodsHash[key].getHead();
         LinkedNode<Ingredient> ing = MainApplication.ingHash[key].getHead();
+        if (bg != null) {
+            System.out.println(bg);
+            searchBakedGood(key);
+        }else if (ing != null){
+            System.out.println(ing);
+            searchIngredient(key);
+        }
+    }
 
-            if (bg != null) {
-                if (bg.getContents().getName().matches(searchText.getText())) {
-                bakedGoods.getItems().add(
-                        bg.getContents().getName() + ": " +
-                                bg.getContents().getDesc() + ", (Origin: " +
-                                bg.getContents().getOrigin() + ")");
-
-                System.out.println(bg.getContents().getName() + ": " +
+    public void searchBakedGood(int key) {
+        LinkedNode<BakedGood> bg = MainApplication.goodsHash[key].getHead();
+        bakedGoods.getItems().add(
+                bg.getContents().getName() + ": " +
                         bg.getContents().getDesc() + ", (Origin: " +
                         bg.getContents().getOrigin() + ")");
-            }
 
-            if (ing != null) {
-                System.out.println("Not found");
-                if (ing.getContents().getName().matches(searchText.getText())) {
-                    ingredients.getItems().add(
-                            ing.getContents().getName() + ": " +
-                            ing.getContents().getDesc() + ", (Calories: " +
-                            ing.getContents().getCalories() + ")");
+        System.out.println(bg.getContents().getName() + ": " +
+                bg.getContents().getDesc() + ", (Origin: " +
+                bg.getContents().getOrigin() + ")");
+    }
 
-                    System.out.println(bg.getContents().getName() + ": " +
-                            ing.getContents().getDesc() + ", (Calories: " +
-                            ing.getContents().getCalories() + ")");
-                }
-            }
-        }
+    public void searchIngredient(int key) {
+        LinkedNode<Ingredient> ing = MainApplication.ingHash[key].getHead();
+        ingredients.getItems().add(
+                ing.getContents().getName() + ": " +
+                        ing.getContents().getDesc() + ", (Origin: " +
+                        ing.getContents().getCalories() + ")");
+
+        System.out.println(ing.getContents().getName() + ": " +
+                ing.getContents().getDesc() + ", (Origin: " +
+                ing.getContents().getCalories() + ")");
     }
 
     public void OnBackButton() throws IOException {
