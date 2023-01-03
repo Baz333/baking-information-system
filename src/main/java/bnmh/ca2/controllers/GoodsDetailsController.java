@@ -43,7 +43,8 @@ public class GoodsDetailsController {
     private String filepath = null;
     public Button editButton;
     public Button fileButton;
-    public int deleteUID;
+
+    public static boolean backToSearchGood;
 
     BakedGood bg = MenuController.bg;
     public static Recipe rec;
@@ -121,8 +122,14 @@ public class GoodsDetailsController {
     }
 
     public void OnBackButton() throws IOException {
-        FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
-        backButton.getScene().setRoot(menuView.load());
+        if(backToSearchGood == false) {
+            FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
+            backButton.getScene().setRoot(menuView.load());
+        }else{
+            FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("search-view.fxml"));
+            backButton.getScene().setRoot(menuView.load());
+            backToSearchGood = false;
+        }
     }
 
     public void OnBackEditButton() throws IOException {

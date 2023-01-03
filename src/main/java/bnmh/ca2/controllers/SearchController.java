@@ -67,13 +67,22 @@ public class SearchController {
         bakedGoods.setOnMouseClicked(click -> {
             if (click.getClickCount() == 2) {
                 if (bakedGoods.getSelectionModel().getSelectedItem() != null) {
-                    String uidSelected =bakedGoods.getSelectionModel().getSelectedItem();
+                    String uidSelected = bakedGoods.getSelectionModel().getSelectedItem();
                     uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
                     System.out.println(uidSelected);
-                    DeleteUID = Integer.parseInt(uidSelected);
-                    BakedGood temp = MainApplication.list.get((Integer.parseInt(uidSelected)) - 1).getContents();
-                    baked = temp;
-                    System.out.println(temp.getName());
+                    LinkedNode<BakedGood> good = MainApplication.list.getHead();
+                    int i = 0;
+                    while(good != null) {
+                        i = i+1;
+                        System.out.println(good.getContents().getName() + ": " + good.getContents().getDesc() + ", (Origin: " + good.getContents().getOrigin() + ")");
+                        if (uidSelected.matches(good.getContents().getName())){
+                            System.out.println(good.getContents().getName());
+                            MenuController.DeleteUID = i;
+                            MenuController.bg = good.getContents();
+                            GoodsDetailsController.backToSearchGood = true;
+                        }
+                        good = good.getNext();
+                    }
                     FXMLLoader caseScene = new FXMLLoader(SearchController.class.getResource("baked-good-details.fxml"));
                     try {
                         bakedGoods.getScene().setRoot(caseScene.load());
@@ -96,6 +105,36 @@ public class SearchController {
         System.out.println(ing.getContents().getName() + ": " +
                 ing.getContents().getDesc() + ", (Calories: " +
                 ing.getContents().getCalories() + ")");
+
+        ingredients.setOnMouseClicked(click -> {
+            if (click.getClickCount() == 2) {
+                if (ingredients.getSelectionModel().getSelectedItem() != null) {
+                    String uidSelected = ingredients.getSelectionModel().getSelectedItem();
+                    uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
+                    System.out.println(uidSelected);
+                    LinkedNode<Ingredient> ingredient = MainApplication.ingList.getHead();
+                    int i = 0;
+                    while(ingredient != null) {
+                        i = i+1;
+                        System.out.println(ingredient.getContents().getName() + ": " + ingredient.getContents().getDesc() + ", (Calories: " + ingredient.getContents().getCalories() + ")");
+                        if (uidSelected.matches(ingredient.getContents().getName())){
+                            System.out.println(ingredient.getContents().getName());
+                            MenuController.DeleteUID = i;
+                            MenuController.ig = ingredient.getContents();
+                            IngredientsDetailsController.backToSearchIngredient = true;
+                        }
+                        ingredient = ingredient.getNext();
+                    }
+                    FXMLLoader caseScene = new FXMLLoader(SearchController.class.getResource("ingredients-details.fxml"));
+                    try {
+                        bakedGoods.getScene().setRoot(caseScene.load());
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }
+        });
     }
 
     public void OnBackButton() throws IOException {

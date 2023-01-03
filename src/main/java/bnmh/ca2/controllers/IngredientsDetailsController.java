@@ -28,6 +28,8 @@ public class IngredientsDetailsController {
     public Button backButton;
     public Button editButton;
 
+    public static boolean backToSearchIngredient;
+
     Ingredient ig = MenuController.ig;
 
     public void initialize() {
@@ -37,8 +39,14 @@ public class IngredientsDetailsController {
     }
 
     public void OnBackButton() throws IOException {
-        FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
-        backButton.getScene().setRoot(menuView.load());
+        if(backToSearchIngredient == false) {
+            FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("menu-view.fxml"));
+            backButton.getScene().setRoot(menuView.load());
+        }else{
+            FXMLLoader menuView = new FXMLLoader(AddGoodsController.class.getResource("search-view.fxml"));
+            backButton.getScene().setRoot(menuView.load());
+            backToSearchIngredient = false;
+        }
     }
 
     public void OnBackEditButton() throws IOException {
