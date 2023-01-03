@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 
 import java.io.IOException;
 import java.util.Locale;
+import java.util.jar.Attributes;
 
 public class SearchController {
 
@@ -30,8 +31,6 @@ public class SearchController {
     private ListView<String> bakedGoods = new ListView<>();
     @FXML
     private ListView<String> ingredients = new ListView<>();
-    BakedGood baked = MenuController.bg;
-    public int DeleteUID;
 
     public void OnSearchButton() {
         int key = 0;
@@ -55,44 +54,48 @@ public class SearchController {
 
     public void searchBakedGood(int key) {
         LinkedNode<BakedGood> bg = MainApplication.goodsHash[key].getHead();
-        bakedGoods.getItems().add(
-                bg.getContents().getName() + ": " +
+        if (nameRadio.isSelected()) {
+            if (bg.getContents().getName().toLowerCase(Locale.ROOT).matches(searchText.getText())) {
+                bakedGoods.getItems().add(
+                        bg.getContents().getName() + ": " +
+                                bg.getContents().getDesc() + ", (Origin: " +
+                                bg.getContents().getOrigin() + ")");
+
+                System.out.println(bg.getContents().getName() + ": " +
                         bg.getContents().getDesc() + ", (Origin: " +
                         bg.getContents().getOrigin() + ")");
 
-        System.out.println(bg.getContents().getName() + ": " +
-                bg.getContents().getDesc() + ", (Origin: " +
-                bg.getContents().getOrigin() + ")");
+                bakedGoods.setOnMouseClicked(click -> {
+                    if (click.getClickCount() == 2) {
+                        if (bakedGoods.getSelectionModel().getSelectedItem() != null) {
+                            String uidSelected = bakedGoods.getSelectionModel().getSelectedItem();
+                            uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
+                            System.out.println(uidSelected);
+                            LinkedNode<BakedGood> good = MainApplication.list.getHead();
+                            int i = 0;
+                            while (good != null) {
+                                i = i + 1;
+                                System.out.println(good.getContents().getName() + ": " + good.getContents().getDesc() + ", (Origin: " + good.getContents().getOrigin() + ")");
+                                if (uidSelected.matches(good.getContents().getName())) {
+                                    System.out.println(good.getContents().getName());
+                                    MenuController.DeleteUID = i;
+                                    MenuController.bg = good.getContents();
+                                    GoodsDetailsController.backToSearchGood = true;
+                                }
+                                good = good.getNext();
+                            }
+                            FXMLLoader caseScene = new FXMLLoader(SearchController.class.getResource("baked-good-details.fxml"));
+                            try {
+                                bakedGoods.getScene().setRoot(caseScene.load());
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
 
-        bakedGoods.setOnMouseClicked(click -> {
-            if (click.getClickCount() == 2) {
-                if (bakedGoods.getSelectionModel().getSelectedItem() != null) {
-                    String uidSelected = bakedGoods.getSelectionModel().getSelectedItem();
-                    uidSelected = uidSelected.substring(0, uidSelected.indexOf(":"));
-                    System.out.println(uidSelected);
-                    LinkedNode<BakedGood> good = MainApplication.list.getHead();
-                    int i = 0;
-                    while(good != null) {
-                        i = i+1;
-                        System.out.println(good.getContents().getName() + ": " + good.getContents().getDesc() + ", (Origin: " + good.getContents().getOrigin() + ")");
-                        if (uidSelected.matches(good.getContents().getName())){
-                            System.out.println(good.getContents().getName());
-                            MenuController.DeleteUID = i;
-                            MenuController.bg = good.getContents();
-                            GoodsDetailsController.backToSearchGood = true;
                         }
-                        good = good.getNext();
                     }
-                    FXMLLoader caseScene = new FXMLLoader(SearchController.class.getResource("baked-good-details.fxml"));
-                    try {
-                        bakedGoods.getScene().setRoot(caseScene.load());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-
-                }
+                });
             }
-        });
+        }
     }
 
     public void searchIngredient(int key) {
