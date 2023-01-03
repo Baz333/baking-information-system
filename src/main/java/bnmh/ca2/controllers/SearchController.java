@@ -66,11 +66,11 @@ public class SearchController {
         LinkedNode<Ingredient> ing = MainApplication.ingHash[key].getHead();
         ingredients.getItems().add(
                 ing.getContents().getName() + ": " +
-                        ing.getContents().getDesc() + ", (Origin: " +
+                        ing.getContents().getDesc() + ", (Calories: " +
                         ing.getContents().getCalories() + ")");
 
         System.out.println(ing.getContents().getName() + ": " +
-                ing.getContents().getDesc() + ", (Origin: " +
+                ing.getContents().getDesc() + ", (Calories: " +
                 ing.getContents().getCalories() + ")");
     }
 
